@@ -1,2 +1,2 @@
-# digitaltwin
+# Digital education technology
 Digital Twin Learning Platform
