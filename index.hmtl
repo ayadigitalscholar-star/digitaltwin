@@ -1,0 +1,1649 @@
+<!doctype html>
+<html lang="ar" dir="rtl" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>منصة تكنولوجيا التعليم الرقمي - جامعة جنوب الوادي</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+      font-family: 'Noto Kufi Arabic', sans-serif;
+    }
+    
+    .official-bg {
+      background: linear-gradient(135deg, #0a1628 0%, #1a365d 50%, #0f2847 100%);
+    }
+    
+    .gold-text { color: #c9a227; }
+    .gold-bg { background-color: #c9a227; }
+    
+    .sidebar-item {
+      transition: all 0.3s ease;
+      border-right: 3px solid transparent;
+    }
+    .sidebar-item:hover, .sidebar-item.active {
+      background: rgba(201, 162, 39, 0.15);
+      border-right-color: #c9a227;
+    }
+    
+    .card {
+      background: white;
+      color: #1e293b;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+    }
+    .card:hover {
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    }
+    
+    .progress-bar {
+      background: #e2e8f0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      background: linear-gradient(90deg, #1a365d 0%, #c9a227 100%);
+      height: 100%;
+      border-radius: 10px;
+      transition: width 0.8s ease;
+    }
+    
+    .toast {
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    
+    .fade-in { animation: fadeIn 0.5s ease; }
+    @keyframes fadeIn { 
+      from { opacity: 0; transform: translateY(15px); } 
+      to { opacity: 1; transform: translateY(0); } 
+    }
+    
+    .slide-in { animation: slideIn 0.4s ease; }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    
+    .pulse-dot { animation: pulse 2s infinite; }
+    @keyframes pulse { 
+      0%, 100% { opacity: 1; transform: scale(1); } 
+      50% { opacity: 0.5; transform: scale(1.1); } 
+    }
+    
+    .float { animation: float 3s ease-in-out infinite; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .btn-official {
+      background: linear-gradient(135deg, #1a365d 0%, #0a1628 100%);
+      transition: all 0.3s ease;
+    }
+    .btn-official:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(26, 54, 93, 0.4);
+    }
+    
+    .btn-gold {
+      background: linear-gradient(135deg, #c9a227 0%, #d4af37 100%);
+      color: #0a1628;
+      transition: all 0.3s ease;
+    }
+    .btn-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(201, 162, 39, 0.4);
+    }
+
+    .form-input {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      transition: all 0.3s ease;
+    }
+    .form-input:focus {
+      border-color: #1a365d;
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(26, 54, 93, 0.1);
+    }
+
+    .course-nav-item {
+      transition: all 0.3s ease;
+      border-bottom: 3px solid transparent;
+    }
+    .course-nav-item:hover, .course-nav-item.active {
+      background: rgba(26, 54, 93, 0.1);
+      border-bottom-color: #c9a227;
+    }
+
+    .face-guide { animation: faceGuide 2s ease-in-out infinite; }
+    @keyframes faceGuide { 
+      0%, 100% { stroke: #3b82f6; stroke-width: 1; } 
+      50% { stroke: #22c55e; stroke-width: 1.5; } 
+    }
+
+    .scanning-line {
+      animation: scan 2s linear infinite;
+    }
+    @keyframes scan {
+      0% { top: 10%; opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { top: 85%; opacity: 1; }
+    }
+
+    .glow {
+      animation: glow 2s ease-in-out infinite;
+    }
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 5px rgba(201, 162, 39, 0.5); }
+      50% { box-shadow: 0 0 20px rgba(201, 162, 39, 0.8); }
+    }
+
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #1a365d, #c9a227); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #0a1628, #d4af37); }
+
+    .modal-overlay {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+    }
+
+    .notification-badge {
+      animation: notificationPulse 2s infinite;
+    }
+    @keyframes notificationPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    .course-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .typing-indicator span {
+      animation: typingBounce 1.4s infinite;
+    }
+    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typingBounce {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-6px); }
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #c9a227, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .ripple {
+      position: relative;
+      overflow: hidden;
+    }
+    .ripple:after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+      transform: scale(0);
+      opacity: 0;
+      transition: all 0.5s;
+    }
+    .ripple:active:after {
+      transform: scale(2);
+      opacity: 1;
+      transition: 0s;
+    }
+
+    .stat-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100px;
+      height: 100px;
+      background: currentColor;
+      opacity: 0.05;
+      border-radius: 50%;
+      transform: translate(30%, -30%);
+    }
+
+    .message-bubble {
+      position: relative;
+    }
+    .message-bubble.sent::after {
+      content: '';
+      position: absolute;
+      left: -8px;
+      top: 12px;
+      border: 8px solid transparent;
+      border-right-color: #3b82f6;
+    }
+    .message-bubble.received::after {
+      content: '';
+      position: absolute;
+      right: -8px;
+      top: 12px;
+      border: 8px solid transparent;
+      border-left-color: #f1f5f9;
+    }
+
+    .hover-scale {
+      transition: transform 0.3s ease;
+    }
+    .hover-scale:hover {
+      transform: scale(1.05);
+    }
+
+    .shine {
+      position: relative;
+      overflow: hidden;
+    }
+    .shine::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(255,255,255,0.1) 50%,
+        transparent 100%
+      );
+      transform: rotate(30deg);
+      animation: shine 3s infinite;
+    }
+    @keyframes shine {
+      0% { transform: translateX(-100%) rotate(30deg); }
+      100% { transform: translateX(100%) rotate(30deg); }
+    }
+
+    .countdown {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .badge-new {
+      animation: badgeNew 1s ease infinite;
+    }
+    @keyframes badgeNew {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full overflow-auto bg-slate-100"><!-- ==================== شاشة تسجيل الدخول ==================== -->
+  <main id="loginScreen" class="min-h-full flex items-center justify-center p-4 official-bg relative overflow-hidden"><!-- خلفية متحركة -->
+   <div class="absolute inset-0 opacity-10">
+    <svg class="w-full h-full" viewbox="0 0 100 100" preserveaspectratio="none"><pattern id="officialPattern" x="0" y="0" width="20" height="20" patternunits="userSpaceOnUse">
+      <path d="M10 0L20 10L10 20L0 10Z" fill="none" stroke="#c9a227" stroke-width="0.5" />
+     </pattern> <rect width="100%" height="100%" fill="url(#officialPattern)" />
+    </svg>
+   </div>
+   <div class="absolute top-20 right-20 w-72 h-72 bg-amber-500/10 rounded-full blur-3xl animate-pulse"></div>
+   <div class="absolute bottom-20 left-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+   <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-3xl"></div>
+   <div class="w-full max-w-md relative z-10"><!-- الشعار والعنوان -->
+    <div class="text-center text-white mb-6">
+     <div class="w-28 h-28 mx-auto mb-4 rounded-full border-4 border-amber-400 flex items-center justify-center bg-gradient-to-br from-amber-500/20 to-amber-600/10 float glow">
+      <svg class="w-16 h-16 text-amber-400" viewbox="0 0 100 100" fill="currentColor"><path d="M50 5L90 25V45L50 65L10 45V25L50 5Z" fill="none" stroke="currentColor" stroke-width="2" /> <circle cx="50" cy="35" r="10" fill="currentColor" /> <path d="M50 65V90M30 82H70" stroke="currentColor" stroke-width="3" stroke-linecap="round" /> <circle cx="30" cy="82" r="3" fill="currentColor" /> <circle cx="70" cy="82" r="3" fill="currentColor" />
+      </svg>
+     </div>
+     <h1 class="text-2xl font-bold mb-2">جامعة جنوب الوادي</h1>
+     <p class="text-amber-300 text-sm mb-1">كلية التربية النوعية</p>
+     <p class="text-blue-200 text-xs">قسم تكنولوجيا التعليم</p>
+     <div class="mt-4 inline-block px-5 py-2 glass-effect rounded-full">
+      <h2 id="platformTitle" class="text-lg gradient-text font-bold">منظومة التعليم الرقمي</h2>
+     </div>
+    </div><!-- صندوق تسجيل الدخول -->
+    <div class="bg-white rounded-3xl p-6 shadow-2xl border border-gray-100 relative overflow-hidden">
+     <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-400"></div><!-- تبويبات طرق الدخول -->
+     <div class="flex mb-5 bg-gray-100 rounded-xl p-1.5"><button onclick="switchLoginTab('password')" id="tabPassword" class="flex-1 py-2.5 px-4 rounded-lg text-sm font-bold bg-white shadow-md text-slate-800 transition-all flex items-center justify-center gap-2"> <span>🔑</span> كلمة المرور </button> <button onclick="switchLoginTab('face')" id="tabFace" class="flex-1 py-2.5 px-4 rounded-lg text-sm font-bold text-gray-500 transition-all flex items-center justify-center gap-2"> <span>📷</span> بصمة الوجه </button>
+     </div><!-- تسجيل بكلمة المرور -->
+     <div id="passwordLoginForm">
+      <form id="loginForm" class="space-y-4">
+       <div><label for="userId" class="block text-sm font-semibold text-gray-700 mb-2">الرقم الجامعي</label>
+        <div class="relative"><span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">👤</span> <input type="text" id="userId" placeholder="مثال: 2024001234" class="w-full p-3 pr-10 form-input rounded-xl focus:outline-none text-sm" required>
+        </div>
+       </div>
+       <div><label for="password" class="block text-sm font-semibold text-gray-700 mb-2">كلمة المرور</label>
+        <div class="relative"><span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">🔒</span> <input type="password" id="password" placeholder="••••••••" class="w-full p-3 pr-10 form-input rounded-xl focus:outline-none text-sm" required> <button type="button" onclick="togglePassword()" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"> <span id="eyeIcon">👁️</span> </button>
+        </div>
+       </div>
+       <div class="flex items-center justify-between text-xs"><label class="flex items-center gap-2 cursor-pointer group"> <input type="checkbox" id="rememberMe" class="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"> <span class="text-gray-600 group-hover:text-gray-800">تذكرني</span> </label> <button type="button" onclick="showForgotPassword()" class="text-blue-600 hover:text-blue-800 hover:underline">نسيت كلمة المرور؟</button>
+       </div><button type="submit" class="w-full py-3.5 btn-official text-white rounded-xl font-bold text-base ripple shine"> تسجيل الدخول </button>
+      </form>
+     </div><!-- تسجيل ببصمة الوجه -->
+     <div id="faceLoginForm" class="hidden">
+      <div class="relative mx-auto w-full max-w-xs">
+       <div id="loginCameraContainer" class="relative aspect-square bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl overflow-hidden border-4 border-slate-600 shadow-xl">
+        <video id="loginVideoFeed" class="w-full h-full object-cover" autoplay playsinline muted style="display: none;"></video>
+        <div id="loginCameraPlaceholder" class="absolute inset-0 flex flex-col items-center justify-center text-white">
+         <div class="w-28 h-28 rounded-full border-4 border-dashed border-green-400 flex items-center justify-center mb-4 animate-pulse">
+          <svg class="w-16 h-16 text-green-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+          </svg>
+         </div>
+         <p class="text-sm text-gray-300 mb-1">التعرف على الوجه</p>
+         <p class="text-xs text-gray-500">اضغط لتشغيل الكاميرا</p>
+        </div>
+        <div id="loginFaceFrame" class="absolute inset-0 pointer-events-none" style="display: none;">
+         <div class="scanning-line absolute left-[15%] right-[15%] h-1 bg-gradient-to-r from-transparent via-green-400 to-transparent rounded-full"></div>
+         <svg class="w-full h-full" viewbox="0 0 100 100" preserveaspectratio="none"><ellipse cx="50" cy="50" rx="30" ry="38" fill="none" stroke="url(#loginGrad)" stroke-width="1" stroke-dasharray="4,2" class="face-guide" /> <defs>
+           <lineargradient id="loginGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#22c55e" />
+            <stop offset="100%" style="stop-color:#3b82f6" />
+           </lineargradient>
+          </defs> <path d="M18 15 L18 5 L28 5" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" /> <path d="M82 15 L82 5 L72 5" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" /> <path d="M18 85 L18 95 L28 95" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" /> <path d="M82 85 L82 95 L72 95" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" />
+         </svg>
+         <div class="absolute bottom-4 left-0 right-0 text-center"><span class="bg-black/70 text-white text-xs px-4 py-2 rounded-full backdrop-blur-sm">📍 ضع وجهك داخل الإطار</span>
+         </div>
+        </div>
+        <div id="loginProcessing" class="absolute inset-0 bg-black/80 flex-col items-center justify-center backdrop-blur-sm" style="display: none;">
+         <div class="relative w-20 h-20">
+          <div class="absolute inset-0 border-4 border-green-500/30 rounded-full"></div>
+          <div class="absolute inset-0 border-4 border-transparent border-t-green-500 rounded-full animate-spin"></div>
+          <div class="absolute inset-2 border-4 border-transparent border-b-blue-500 rounded-full animate-spin" style="animation-direction: reverse; animation-duration: 1.5s;"></div>
+         </div>
+         <p class="text-white text-sm mt-4 font-medium">جاري التحقق من الهوية...</p>
+         <p class="text-gray-400 text-xs mt-1">يرجى الانتظار</p>
+        </div>
+        <div id="loginSuccess" class="absolute inset-0 bg-gradient-to-br from-green-500 to-emerald-600 flex-col items-center justify-center" style="display: none;">
+         <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center mb-4 shadow-2xl">
+          <svg class="w-14 h-14 text-green-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+          </svg>
+         </div>
+         <p class="text-white text-xl font-bold">تم التحقق بنجاح! ✅</p>
+         <p class="text-white/80 text-sm mt-2">جاري تحويلك للمنصة...</p>
+        </div>
+       </div>
+       <div class="mt-5 space-y-3"><button id="loginStartCamera" onclick="startLoginCamera()" class="w-full py-3.5 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-xl"> <span class="text-lg">📷</span> تشغيل الكاميرا </button> <button id="loginCaptureBtn" onclick="captureLoginFace()" class="w-full py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-xl hidden"> <span class="text-lg">🔐</span> تسجيل الدخول بالوجه </button>
+       </div>
+      </div>
+      <div class="mt-5 p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-200">
+       <div class="flex items-start gap-3"><span class="text-2xl">💡</span>
+        <div>
+         <p class="text-sm font-bold text-green-800 mb-1">نصائح للتعرف الأمثل</p>
+         <ul class="text-xs text-green-700 space-y-1">
+          <li>• تأكد من إضاءة جيدة للوجه</li>
+          <li>• انظر مباشرة إلى الكاميرا</li>
+          <li>• أزل النظارات الشمسية أو الكمامة</li>
+         </ul>
+        </div>
+       </div>
+      </div>
+     </div><!-- فاصل -->
+     <div class="my-5 flex items-center gap-4">
+      <div class="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div><span class="text-gray-400 text-xs font-medium">دخول سريع للتجربة</span>
+      <div class="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
+     </div><!-- أزرار الدخول السريع -->
+     <div class="grid grid-cols-4 gap-3"><button onclick="quickLogin('student')" class="p-3 bg-gradient-to-br from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 rounded-xl text-center transition-all group hover:shadow-md"> <span class="text-2xl block mb-1.5 group-hover:scale-125 transition-transform">🎓</span> <span class="text-xs font-bold text-blue-800">طالب</span> </button> <button onclick="quickLogin('teacher')" class="p-3 bg-gradient-to-br from-purple-50 to-purple-100 hover:from-purple-100 hover:to-purple-200 rounded-xl text-center transition-all group hover:shadow-md"> <span class="text-2xl block mb-1.5 group-hover:scale-125 transition-transform">👨‍🏫</span> <span class="text-xs font-bold text-purple-800">أستاذ</span> </button> <button onclick="quickLogin('admin')" class="p-3 bg-gradient-to-br from-amber-50 to-amber-100 hover:from-amber-100 hover:to-amber-200 rounded-xl text-center transition-all group hover:shadow-md"> <span class="text-2xl block mb-1.5 group-hover:scale-125 transition-transform">⚙️</span> <span class="text-xs font-bold text-amber-800">مدير</span> </button> <button onclick="quickLogin('guest')" class="p-3 bg-gradient-to-br from-gray-50 to-gray-100 hover:from-gray-100 hover:to-gray-200 rounded-xl text-center transition-all group hover:shadow-md"> <span class="text-2xl block mb-1.5 group-hover:scale-125 transition-transform">👁️</span> <span class="text-xs font-bold text-gray-600">زائر</span> </button>
+     </div>
+    </div><!-- Footer -->
+    <div class="text-center mt-6">
+     <p class="text-white/60 text-xs">© 2025 جميع الحقوق محفوظة</p>
+     <p class="text-white/40 text-xs mt-1">منصة تكنولوجيا التعليم - جامعة جنوب الوادي</p>
+    </div>
+   </div>
+  </main><!-- ==================== نافذة نسيت كلمة المرور ==================== -->
+  <div id="forgotPasswordModal" class="fixed inset-0 modal-overlay hidden items-center justify-center z-50 p-4">
+   <div class="bg-white rounded-2xl w-full max-w-sm shadow-2xl overflow-hidden">
+    <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-5">
+     <div class="flex items-center justify-between">
+      <h3 class="font-bold text-lg">استعادة كلمة المرور</h3><button onclick="closeForgotPassword()" class="p-1 hover:bg-white/20 rounded-lg">✕</button>
+     </div>
+    </div>
+    <div class="p-5">
+     <p class="text-gray-600 text-sm mb-4">أدخل بريدك الإلكتروني وسنرسل لك رابط إعادة تعيين كلمة المرور</p>
+     <form onsubmit="event.preventDefault(); sendResetLink();">
+      <div class="mb-4"><label class="block text-sm font-semibold text-gray-700 mb-2">البريد الإلكتروني</label> <input type="email" id="resetEmail" placeholder="example@edu.svu.eg" class="w-full p-3 form-input rounded-xl focus:outline-none text-sm" required>
+      </div><button type="submit" class="w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold"> إرسال رابط الاستعادة </button>
+     </form>
+    </div>
+   </div>
+  </div><!-- ==================== المنصة الرئيسية ==================== -->
+  <div id="mainPlatform" class="h-full hidden"><!-- الشريط الجانبي -->
+   <aside class="fixed right-0 top-0 h-full w-64 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 z-40 text-white overflow-y-auto shadow-2xl"><!-- معلومات المستخدم -->
+    <div class="p-5 border-b border-white/10 bg-gradient-to-r from-slate-800 to-slate-900">
+     <div class="flex items-center gap-4">
+      <div class="w-14 h-14 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 border-3 border-amber-300 flex items-center justify-center shadow-lg"><span id="sidebarAvatar" class="text-2xl">🎓</span>
+      </div>
+      <div class="flex-1">
+       <h3 id="sidebarName" class="font-bold text-sm">آية علي</h3>
+       <p id="sidebarRole" class="text-xs text-blue-300">طالبة</p>
+       <div class="flex items-center gap-1.5 mt-1.5"><span class="w-2.5 h-2.5 bg-green-400 rounded-full pulse-dot"></span> <span class="text-xs text-green-400">متصل الآن</span>
+       </div>
+      </div>
+     </div><!-- شريط التقدم الإجمالي -->
+     <div class="mt-4 p-3 bg-white/5 rounded-xl">
+      <div class="flex items-center justify-between text-xs mb-2"><span class="text-gray-400">التقدم الكلي</span> <span class="text-amber-400 font-bold">73%</span>
+      </div>
+      <div class="progress-bar h-2">
+       <div class="progress-fill" style="width: 73%"></div>
+      </div>
+     </div>
+    </div>
+    <nav class="p-4">
+     <p class="text-xs text-gray-500 mb-3 px-3 font-semibold tracking-wider">القائمة الرئيسية</p>
+     <div class="space-y-1.5"><button onclick="showSection('home')" data-section="home" class="sidebar-item active w-full p-3 rounded-xl text-right flex items-center gap-3 ripple"> <span class="text-lg">🏠</span> <span class="text-sm font-medium">لوحة المعلومات</span> </button> <button onclick="showSection('courses')" data-section="courses" class="sidebar-item w-full p-3 rounded-xl text-right flex items-center gap-3 ripple"> <span class="text-lg">📚</span> <span class="text-sm font-medium">المقررات</span> <span class="mr-auto bg-gradient-to-r from-amber-500 to-amber-600 text-xs px-2.5 py-1 rounded-full text-slate-900 font-bold shadow">6</span> </button> <button onclick="showSection('assignments')" data-section="assignments" class="sidebar-item w-full p-3 rounded-xl text-right flex items-center gap-3 ripple"> <span class="text-lg">📝</span> <span class="text-sm font-medium">التكليفات</span> <span class="mr-auto bg-gradient-to-r from-red-500 to-rose-600 text-xs px-2.5 py-1 rounded-full font-bold shadow badge-new">4</span> </button> <button onclick="showSection('grades')" data-section="grades" class="sidebar-item w-full p-3 rounded-xl text-right flex items-center gap-3 ripple"> <span class="text-lg">📊</span> <span class="text-sm font-medium">الدرجات</span> </button> <button onclick="showSection('schedule')" data-section="schedule" class="sidebar-item w-full p-3 rounded-xl text-right flex items-center gap-3 ripple"> <span class="text-lg">📅</span> <span class="text-sm font-medium">الجدول</span> </button> <button onclick="showSection('attendance')" data-section="attendance" class="sidebar-item w-full p-3 rounded-xl text-right flex items-center gap-3 ripple"> <span class="text-lg">📷</span> <span class="text-sm font-medium">بصمة الوجه</span> <span class="mr-auto text-xs px-2 py-0.5 rounded bg-green-500/20 text-green-400">جديد</span> </button>
+     </div>
+     <p class="text-xs text-gray-500 mb-3 px-3 mt-6 font-semibold tracking-wider">التواصل</p>
+     <div class="space-y-1.5"><button onclick="showSection('messages')" data-section="messages" class="sidebar-item w-full p-3 rounded-xl text-right flex items-center gap-3 ripple"> <span class="text-lg">✉️</span> <span class="text-sm font-medium">الرسائل</span> <span class="mr-auto bg-gradient-to-r from-blue-500 to-blue-600 text-xs px-2.5 py-1 rounded-full font-bold shadow">5</span> </button> <button onclick="showSection('notifications')" data-section="notifications" class="sidebar-item w-full p-3 rounded-xl text-right flex items-center gap-3 ripple"> <span class="text-lg">🔔</span> <span class="text-sm font-medium">الإشعارات</span> <span class="mr-auto bg-gradient-to-r from-purple-500 to-purple-600 text-xs px-2.5 py-1 rounded-full font-bold shadow notification-badge">12</span> </button> <button onclick="showSection('forum')" data-section="forum" class="sidebar-item w-full p-3 rounded-xl text-right flex items-center gap-3 ripple"> <span class="text-lg">💬</span> <span class="text-sm font-medium">المنتدى</span> </button>
+     </div>
+     <p class="text-xs text-gray-500 mb-3 px-3 mt-6 font-semibold tracking-wider">الأدوات</p>
+     <div class="space-y-1.5"><button onclick="openChatbot()" class="sidebar-item w-full p-3 rounded-xl text-right flex items-center gap-3 ripple"> <span class="text-lg">🤖</span> <span class="text-sm font-medium">المساعد الذكي</span> <span class="mr-auto text-xs px-2.5 py-1 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 font-bold shadow">AI</span> </button> <button onclick="showSection('library')" data-section="library" class="sidebar-item w-full p-3 rounded-xl text-right flex items-center gap-3 ripple"> <span class="text-lg">📖</span> <span class="text-sm font-medium">المكتبة الرقمية</span> </button> <button onclick="showSection('settings')" data-section="settings" class="sidebar-item w-full p-3 rounded-xl text-right flex items-center gap-3 ripple"> <span class="text-lg">⚙️</span> <span class="text-sm font-medium">الإعدادات</span> </button>
+     </div>
+    </nav><!-- زر تسجيل الخروج -->
+    <div class="p-4 border-t border-white/10 mt-4"><button onclick="logout()" class="w-full p-3 rounded-xl text-right flex items-center gap-3 hover:bg-red-500/20 text-red-400 transition-all group"> <span class="text-lg group-hover:scale-110 transition-transform">🚪</span> <span class="text-sm font-medium">تسجيل الخروج</span> </button>
+    </div>
+   </aside><!-- المحتوى الرئيسي -->
+   <div class="mr-64 min-h-full bg-gradient-to-br from-slate-50 via-gray-50 to-slate-100"><!-- Header -->
+    <header class="bg-gradient-to-l from-slate-900 via-slate-800 to-slate-900 text-white p-5 sticky top-0 z-30 shadow-xl">
+     <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-400"></div>
+     <div class="flex items-center justify-between">
+      <div>
+       <h1 id="pageTitle" class="text-xl font-bold">لوحة المعلومات</h1>
+       <p class="text-sm text-blue-200 mt-1">الفصل الدراسي الأول 2025/2026</p>
+      </div>
+      <div class="flex items-center gap-5"><!-- البحث -->
+       <div class="relative hidden md:block"><input type="text" id="globalSearch" placeholder="بحث في المنصة..." class="w-48 py-2.5 px-4 pr-10 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 text-sm focus:outline-none focus:bg-white/20 focus:w-64 transition-all"> <span class="absolute right-3 top-1/2 -translate-y-1/2 text-white/50">🔍</span>
+       </div><!-- الإشعارات السريعة --> <button onclick="showSection('notifications')" class="relative p-2 hover:bg-white/10 rounded-xl transition-all"> <span class="text-xl">🔔</span> <span class="absolute -top-1 -left-1 w-5 h-5 bg-red-500 rounded-full text-xs flex items-center justify-center font-bold">3</span> </button> <!-- الوقت والتاريخ -->
+       <div id="currentDateTime" class="text-left hidden lg:block">
+        <p class="text-xs text-blue-200">الأحد، 15 يناير</p>
+        <p class="font-bold text-lg countdown">10:30:45</p>
+       </div>
+      </div>
+     </div>
+    </header>
+    <div class="p-6"><!-- ==================== لوحة المعلومات ==================== -->
+     <section id="homeSection" class="content-section fade-in"><!-- رسالة الترحيب -->
+      <div class="card p-6 mb-6 border-r-4 border-amber-500 relative overflow-hidden">
+       <div class="absolute top-0 left-0 w-64 h-64 bg-amber-500/5 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+       <div class="flex items-center justify-between flex-wrap gap-4 relative">
+        <div>
+         <h1 class="text-2xl font-bold">مرحباً <span id="welcomeName" class="gradient-text">آية</span> 👋</h1>
+         <p class="text-gray-500 mt-2">نتمنى لك يوماً دراسياً موفقاً ومليئاً بالإنجازات</p>
+         <div class="flex items-center gap-4 mt-3"><span class="text-sm text-gray-400">📅 <span id="welcomeDate">الأحد، 15 يناير 2025</span></span> <span class="text-sm text-gray-400">☀️ <span>طقس معتدل</span></span>
+         </div>
+        </div>
+        <div class="flex gap-3"><button onclick="showSection('attendance')" class="px-5 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl flex items-center gap-2 hover:shadow-lg transition-all hover-scale"> <span>📷</span><span class="font-bold">تسجيل الحضور</span> </button> <button onclick="openChatbot()" class="px-5 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl flex items-center gap-2 hover:shadow-lg transition-all hover-scale"> <span>🤖</span><span class="font-bold">المساعد</span> </button>
+        </div>
+       </div>
+      </div><!-- المساعد الذكي المدمج -->
+      <div class="card p-6 mb-6 bg-gradient-to-r from-purple-50 via-blue-50 to-indigo-50 border-2 border-purple-200">
+       <div class="flex items-start gap-5">
+        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-600 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-xl"><span class="text-3xl">🤖</span>
+        </div>
+        <div class="flex-1">
+         <div class="flex items-center gap-3 mb-3">
+          <h3 class="font-bold text-lg text-purple-800">المساعد الذكي</h3><span class="px-3 py-1 bg-gradient-to-r from-purple-500 to-blue-500 text-white text-xs rounded-full font-bold">AI</span> <span class="flex items-center gap-1.5 text-xs text-green-600"> <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> متصل ومستعد للمساعدة </span>
+         </div>
+         <p class="text-sm text-gray-600 mb-4">مرحباً! أنا هنا لمساعدتك في أي استفسار عن المقررات، التكليفات، الدرجات، أو أي شيء يخص دراستك.</p><!-- أسئلة سريعة -->
+         <div class="flex flex-wrap gap-2 mb-4"><button onclick="askQuickQuestion('ما هي التكليفات المعلقة؟')" class="px-4 py-2 bg-white border-2 border-purple-200 rounded-full text-xs text-purple-700 hover:bg-purple-100 hover:border-purple-300 transition-all font-medium"> 📝 التكليفات المعلقة </button> <button onclick="askQuickQuestion('كيف أحسن درجاتي؟')" class="px-4 py-2 bg-white border-2 border-purple-200 rounded-full text-xs text-purple-700 hover:bg-purple-100 hover:border-purple-300 transition-all font-medium"> 📈 تحسين الدرجات </button> <button onclick="askQuickQuestion('ما هو جدول اليوم؟')" class="px-4 py-2 bg-white border-2 border-purple-200 rounded-full text-xs text-purple-700 hover:bg-purple-100 hover:border-purple-300 transition-all font-medium"> 📅 جدول اليوم </button> <button onclick="askQuickQuestion('ما نسبة حضوري؟')" class="px-4 py-2 bg-white border-2 border-purple-200 rounded-full text-xs text-purple-700 hover:bg-purple-100 hover:border-purple-300 transition-all font-medium"> 📊 نسبة الحضور </button>
+         </div><!-- حقل السؤال -->
+         <div class="flex gap-3"><input type="text" id="homeAiInput" placeholder="اكتب سؤالك هنا..." class="flex-1 p-4 border-2 border-purple-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-400 bg-white"> <button onclick="askFromHome()" class="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl hover:shadow-xl transition-all flex items-center gap-2 font-bold"> <span>إرسال</span>
+           <svg class="w-5 h-5 rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+           </svg></button>
+         </div><!-- رد المساعد -->
+         <div id="homeAiResponse" class="hidden mt-4 p-4 bg-white rounded-xl border-2 border-purple-100 shadow-sm">
+          <div class="flex gap-3"><span class="text-2xl">🤖</span>
+           <div class="flex-1">
+            <p id="homeAiResponseText" class="text-sm text-gray-700 leading-relaxed"></p>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div><!-- الإحصائيات -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-6">
+       <div class="card stat-card p-5 border-r-4 border-blue-500 hover:shadow-xl transition-all cursor-pointer text-blue-600" onclick="showSection('courses')">
+        <div class="flex items-center justify-between">
+         <div>
+          <p class="text-gray-500 text-sm font-medium">المقررات الدراسية</p>
+          <h3 class="text-3xl font-bold mt-2">6</h3>
+          <p class="text-xs text-gray-400 mt-1">18 ساعة معتمدة</p>
+         </div>
+         <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center"><span class="text-2xl">📚</span>
+         </div>
+        </div>
+       </div>
+       <div class="card stat-card p-5 border-r-4 border-green-500 hover:shadow-xl transition-all cursor-pointer text-green-600">
+        <div class="flex items-center justify-between">
+         <div>
+          <p class="text-gray-500 text-sm font-medium">مهام منجزة</p>
+          <h3 class="text-3xl font-bold mt-2">19</h3>
+          <p class="text-xs text-green-500 mt-1">+3 هذا الأسبوع</p>
+         </div>
+         <div class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center"><span class="text-2xl">✅</span>
+         </div>
+        </div>
+       </div>
+       <div class="card stat-card p-5 border-r-4 border-amber-500 hover:shadow-xl transition-all cursor-pointer text-amber-600" onclick="showSection('assignments')">
+        <div class="flex items-center justify-between">
+         <div>
+          <p class="text-gray-500 text-sm font-medium">مهام معلقة</p>
+          <h3 class="text-3xl font-bold mt-2">4</h3>
+          <p class="text-xs text-red-500 mt-1">⚠️ واحدة عاجلة</p>
+         </div>
+         <div class="w-14 h-14 bg-amber-100 rounded-2xl flex items-center justify-center"><span class="text-2xl">⏰</span>
+         </div>
+        </div>
+       </div>
+       <div class="card stat-card p-5 border-r-4 border-purple-500 hover:shadow-xl transition-all cursor-pointer text-purple-600" onclick="showSection('grades')">
+        <div class="flex items-center justify-between">
+         <div>
+          <p class="text-gray-500 text-sm font-medium">المعدل التراكمي</p>
+          <h3 class="text-3xl font-bold mt-2">3.72</h3>
+          <p class="text-xs text-purple-500 mt-1">تقدير: جيد جداً</p>
+         </div>
+         <div class="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center"><span class="text-2xl">⭐</span>
+         </div>
+        </div>
+       </div>
+      </div><!-- المقررات والمهام -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6"><!-- المقررات -->
+       <div class="card p-6">
+        <div class="flex items-center justify-between mb-5">
+         <h2 class="font-bold text-lg flex items-center gap-2"><span>📚</span> المقررات الحالية</h2><button onclick="showSection('courses')" class="text-blue-600 text-sm hover:underline font-medium flex items-center gap-1"> عرض الكل <span>←</span> </button>
+        </div>
+        <div class="space-y-4" id="homeCoursesPreview"></div>
+       </div><!-- المهام -->
+       <div class="card p-6">
+        <div class="flex items-center justify-between mb-5">
+         <h2 class="font-bold text-lg flex items-center gap-2"><span>📝</span> المهام القادمة</h2><button onclick="showSection('assignments')" class="text-blue-600 text-sm hover:underline font-medium flex items-center gap-1"> عرض الكل <span>←</span> </button>
+        </div>
+        <div class="space-y-4" id="homeTasksPreview"></div>
+       </div>
+      </div><!-- الجدول والإشعارات -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6"><!-- جدول اليوم -->
+       <div class="lg:col-span-2 card p-6">
+        <h2 class="font-bold text-lg mb-5 flex items-center gap-2"><span>📅</span> جدول اليوم <span id="todayName" class="text-sm font-normal text-gray-500 mr-2"></span></h2>
+        <div class="space-y-4" id="todaySchedule"></div>
+       </div><!-- الإشعارات -->
+       <div class="card p-6">
+        <h2 class="font-bold text-lg mb-5 flex items-center gap-2"><span>🔔</span> آخر الإشعارات</h2>
+        <div class="space-y-4" id="recentNotifications"></div>
+       </div>
+      </div>
+     </section><!-- ==================== صفحة المقررات ==================== -->
+     <section id="coursesSection" class="content-section hidden">
+      <div class="flex items-center justify-between mb-6 flex-wrap gap-4">
+       <div>
+        <h2 class="text-2xl font-bold">المقررات الدراسية</h2>
+        <p class="text-gray-500 mt-1">6 مقررات - 18 ساعة معتمدة</p>
+       </div>
+       <div class="flex gap-3"><select class="p-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-white"> <option>جميع المقررات</option> <option>المقررات النشطة</option> <option>المقررات المكتملة</option> </select>
+       </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="coursesGrid"></div>
+     </section><!-- ==================== صفحة تفاصيل المقرر ==================== -->
+     <section id="courseDetailSection" class="content-section hidden"><button onclick="showSection('courses')" class="flex items-center gap-2 text-blue-600 hover:text-blue-800 mb-5 transition-colors font-medium"> <span class="text-lg">→</span><span>العودة للمقررات</span> </button>
+      <div class="card p-6 mb-5" id="courseHeader"></div>
+      <div class="bg-white rounded-2xl shadow-lg mb-5 overflow-hidden">
+       <div class="flex border-b overflow-x-auto"><button onclick="showCourseTab('units')" data-tab="units" class="course-nav-item active px-6 py-4 font-medium flex items-center gap-2 whitespace-nowrap"> <span>📖</span> الوحدات الدراسية </button> <button onclick="showCourseTab('materials')" data-tab="materials" class="course-nav-item px-6 py-4 font-medium flex items-center gap-2 whitespace-nowrap"> <span>📁</span> المصادر والملفات </button> <button onclick="showCourseTab('activities')" data-tab="activities" class="course-nav-item px-6 py-4 font-medium flex items-center gap-2 whitespace-nowrap"> <span>📋</span> الأنشطة </button> <button onclick="showCourseTab('courseGrades')" data-tab="courseGrades" class="course-nav-item px-6 py-4 font-medium flex items-center gap-2 whitespace-nowrap"> <span>📊</span> الدرجات </button> <button onclick="showCourseTab('discussion')" data-tab="discussion" class="course-nav-item px-6 py-4 font-medium flex items-center gap-2 whitespace-nowrap"> <span>💬</span> المناقشات </button>
+       </div>
+      </div>
+      <div id="courseTabContent" class="card p-6"></div>
+     </section><!-- ==================== صفحة التكليفات ==================== -->
+     <section id="assignmentsSection" class="content-section hidden">
+      <div class="flex items-center justify-between mb-6 flex-wrap gap-4">
+       <div>
+        <h2 class="text-2xl font-bold">التكليفات والمهام</h2>
+        <p class="text-gray-500 mt-1">4 مهام معلقة - 19 مهمة منجزة</p>
+       </div>
+       <div class="flex gap-3"><button id="filterPending" onclick="filterAssignments('pending')" class="px-5 py-2.5 bg-amber-100 text-amber-700 rounded-xl font-medium text-sm transition-all hover:bg-amber-200"> المعلقة (4) </button> <button id="filterCompleted" onclick="filterAssignments('completed')" class="px-5 py-2.5 bg-gray-100 text-gray-600 rounded-xl font-medium text-sm transition-all hover:bg-gray-200"> المنجزة (19) </button> <button id="filterAll" onclick="filterAssignments('all')" class="px-5 py-2.5 bg-blue-100 text-blue-700 rounded-xl font-medium text-sm transition-all hover:bg-blue-200"> الكل </button>
+       </div>
+      </div>
+      <div class="space-y-4" id="assignmentsList"></div>
+     </section><!-- ==================== صفحة الدرجات ==================== -->
+     <section id="gradesSection" class="content-section hidden">
+      <div class="mb-6">
+       <h2 class="text-2xl font-bold">السجل الأكاديمي</h2>
+       <p class="text-gray-500 mt-1">المعدل التراكمي: 3.72 من 4.00 - تقدير جيد جداً</p>
+      </div><!-- إحصائيات الدرجات -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-5 mb-6">
+       <div class="card p-5 text-center border-t-4 border-green-500">
+        <p class="text-4xl font-bold text-green-600">A+</p>
+        <p class="text-sm text-gray-500 mt-2">أعلى تقدير</p>
+       </div>
+       <div class="card p-5 text-center border-t-4 border-blue-500">
+        <p class="text-4xl font-bold text-blue-600">3.72</p>
+        <p class="text-sm text-gray-500 mt-2">المعدل التراكمي</p>
+       </div>
+       <div class="card p-5 text-center border-t-4 border-purple-500">
+        <p class="text-4xl font-bold text-purple-600">18</p>
+        <p class="text-sm text-gray-500 mt-2">ساعات معتمدة</p>
+       </div>
+       <div class="card p-5 text-center border-t-4 border-amber-500">
+        <p class="text-4xl font-bold text-amber-600">92%</p>
+        <p class="text-sm text-gray-500 mt-2">متوسط الدرجات</p>
+       </div>
+      </div><!-- جدول الدرجات -->
+      <div class="card overflow-hidden">
+       <div class="overflow-x-auto">
+        <table class="w-full min-w-[700px]">
+         <thead class="bg-gradient-to-r from-slate-800 to-slate-900 text-white">
+          <tr>
+           <th class="p-4 text-right">المقرر</th>
+           <th class="p-4 text-center">الحضور (10)</th>
+           <th class="p-4 text-center">الأعمال (20)</th>
+           <th class="p-4 text-center">النصفي (20)</th>
+           <th class="p-4 text-center">النهائي (50)</th>
+           <th class="p-4 text-center">المجموع</th>
+           <th class="p-4 text-center">التقدير</th>
+          </tr>
+         </thead>
+         <tbody id="gradesBody"></tbody>
+        </table>
+       </div>
+      </div>
+     </section><!-- ==================== صفحة الجدول ==================== -->
+     <section id="scheduleSection" class="content-section hidden">
+      <div class="mb-6">
+       <h2 class="text-2xl font-bold">الجدول الدراسي</h2>
+       <p class="text-gray-500 mt-1">الفصل الدراسي الأول 2025/2026</p>
+      </div><!-- عرض الأسبوع -->
+      <div class="card overflow-hidden">
+       <div class="overflow-x-auto">
+        <table class="w-full min-w-[800px]">
+         <thead class="bg-gradient-to-r from-slate-800 to-slate-900 text-white">
+          <tr>
+           <th class="p-4 text-center w-24">اليوم</th>
+           <th class="p-4 text-center">8:00 - 10:00</th>
+           <th class="p-4 text-center">10:00 - 12:00</th>
+           <th class="p-4 text-center">12:00 - 2:00</th>
+           <th class="p-4 text-center">2:00 - 4:00</th>
+          </tr>
+         </thead>
+         <tbody id="scheduleBody"></tbody>
+        </table>
+       </div>
+      </div>
+     </section><!-- ==================== صفحة بصمة الوجه ==================== -->
+     <section id="attendanceSection" class="content-section hidden">
+      <div class="mb-6">
+       <h2 class="text-2xl font-bold flex items-center gap-3"><span class="text-3xl">📷</span> نظام بصمة الوجه</h2>
+       <p class="text-gray-500 mt-1">سجل حضورك باستخدام تقنية التعرف على الوجه المتقدمة</p>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6"><!-- الكاميرا -->
+       <div class="card p-6">
+        <h3 class="font-bold text-lg mb-5 flex items-center gap-2"><span>🎥</span> كاميرا التعرف على الوجه</h3>
+        <div class="relative mx-auto w-full max-w-sm">
+         <div id="cameraContainer" class="relative aspect-[4/3] bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl overflow-hidden border-4 border-slate-600 shadow-2xl">
+          <video id="videoFeed" class="w-full h-full object-cover" autoplay playsinline muted style="display: none;"></video>
+          <canvas id="captureCanvas" class="w-full h-full object-cover" style="display: none;"></canvas>
+          <div id="cameraPlaceholder" class="absolute inset-0 flex flex-col items-center justify-center text-white">
+           <div class="w-28 h-28 rounded-full border-4 border-dashed border-blue-400 flex items-center justify-center mb-4 animate-pulse">
+            <svg class="w-16 h-16 text-blue-400" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+            </svg>
+           </div>
+           <p class="text-base text-gray-300 mb-1">التعرف على الوجه</p>
+           <p class="text-sm text-gray-500">اضغط على الزر لتشغيل الكاميرا</p>
+          </div>
+          <div id="faceFrame" class="absolute inset-0 pointer-events-none" style="display: none;">
+           <div class="scanning-line absolute left-[12%] right-[12%] h-1 bg-gradient-to-r from-transparent via-green-400 to-transparent rounded-full"></div>
+           <svg class="w-full h-full" viewbox="0 0 100 100" preserveaspectratio="none"><ellipse cx="50" cy="45" rx="28" ry="35" fill="none" stroke="url(#faceGradient)" stroke-width="0.8" stroke-dasharray="4,2" class="face-guide" /> <defs>
+             <lineargradient id="faceGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#3b82f6" />
+              <stop offset="100%" style="stop-color:#22c55e" />
+             </lineargradient>
+            </defs> <path d="M18 15 L18 5 L28 5" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" /> <path d="M82 15 L82 5 L72 5" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" /> <path d="M18 85 L18 95 L28 95" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" /> <path d="M82 85 L82 95 L72 95" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" />
+           </svg>
+           <div class="absolute bottom-4 left-0 right-0 text-center"><span class="bg-black/70 text-white text-sm px-5 py-2 rounded-full backdrop-blur-sm">📍 ضع وجهك داخل الإطار</span>
+           </div>
+          </div>
+          <div id="processingOverlay" class="absolute inset-0 bg-black/80 flex-col items-center justify-center backdrop-blur-sm" style="display: none;">
+           <div class="relative w-20 h-20">
+            <div class="absolute inset-0 border-4 border-blue-500/30 rounded-full"></div>
+            <div class="absolute inset-0 border-4 border-transparent border-t-blue-500 rounded-full animate-spin"></div>
+            <div class="absolute inset-2 border-4 border-transparent border-b-green-500 rounded-full animate-spin" style="animation-direction: reverse; animation-duration: 1.5s;"></div>
+           </div>
+           <p class="text-white text-base mt-5 font-medium">جاري التعرف على الوجه...</p>
+           <p class="text-gray-400 text-sm mt-1">يرجى الانتظار</p>
+          </div>
+          <div id="successOverlay" class="absolute inset-0 bg-gradient-to-br from-green-500 to-emerald-600 flex-col items-center justify-center" style="display: none;">
+           <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center mb-5 shadow-2xl">
+            <svg class="w-14 h-14 text-green-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+            </svg>
+           </div>
+           <p class="text-white text-xl font-bold">تم التحقق بنجاح! ✅</p>
+           <p id="successName" class="text-white/90 mt-2"></p>
+           <p id="successCourse" class="text-white/70 text-sm mt-1"></p>
+          </div>
+         </div>
+         <div id="cameraControls" class="mt-5">
+          <div id="controlsStart" class="flex gap-3"><button onclick="startFaceCamera()" class="flex-1 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-xl"> <span class="text-lg">📷</span> تشغيل الكاميرا </button>
+          </div>
+          <div id="controlsActive" class="space-y-3" style="display: none;"><button onclick="captureFace()" class="w-full py-4 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-xl"> <span class="text-lg">📸</span> التقاط البصمة وتسجيل الحضور </button> <button onclick="stopCamera()" class="w-full py-3 bg-red-500 hover:bg-red-600 text-white rounded-xl flex items-center justify-center gap-2 transition-all font-medium"> <span>⏹️</span> إيقاف الكاميرا </button>
+          </div>
+         </div>
+        </div>
+        <div class="mt-6 p-5 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-200">
+         <div class="flex items-start gap-3"><span class="text-2xl">💡</span>
+          <div>
+           <h4 class="font-bold text-blue-800 mb-2">إرشادات للتعرف الأمثل</h4>
+           <ul class="text-sm text-blue-700 space-y-1.5">
+            <li>• تأكد من إضاءة جيدة للوجه</li>
+            <li>• انظر مباشرة إلى الكاميرا</li>
+            <li>• أزل النظارات الشمسية أو الكمامة</li>
+            <li>• ابق ثابتاً أثناء الالتقاط</li>
+           </ul>
+          </div>
+         </div>
+        </div>
+       </div><!-- سجل الحضور -->
+       <div class="card p-6">
+        <h3 class="font-bold text-lg mb-5 flex items-center gap-2"><span>📋</span> سجل الحضور الأخير</h3>
+        <div class="space-y-4" id="attendanceHistory"><!-- سيتم ملؤها بـ JavaScript -->
+        </div><!-- إحصائيات الحضور -->
+        <div class="mt-6 p-5 bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl text-white">
+         <div class="flex items-center justify-between mb-4"><span class="font-medium">نسبة الحضور الكلية</span> <span class="text-3xl font-bold text-green-400">92%</span>
+         </div>
+         <div class="progress-bar h-3 bg-slate-700">
+          <div class="progress-fill" style="width: 92%"></div>
+         </div>
+         <div class="grid grid-cols-3 gap-3 mt-5">
+          <div class="p-3 bg-white/10 rounded-xl text-center">
+           <p class="text-2xl font-bold text-green-400">23</p>
+           <p class="text-xs text-gray-400 mt-1">حضور</p>
+          </div>
+          <div class="p-3 bg-white/10 rounded-xl text-center">
+           <p class="text-2xl font-bold text-red-400">2</p>
+           <p class="text-xs text-gray-400 mt-1">غياب</p>
+          </div>
+          <div class="p-3 bg-white/10 rounded-xl text-center">
+           <p class="text-2xl font-bold text-amber-400">1</p>
+           <p class="text-xs text-gray-400 mt-1">تأخير</p>
+          </div>
+         </div>
+         <div class="mt-5 pt-5 border-t border-white/10">
+          <h4 class="text-sm text-gray-400 mb-3">تفاصيل حسب المقرر</h4>
+          <div class="space-y-2">
+           <div class="flex items-center justify-between"><span class="text-sm">التصميم التعليمي</span> <span class="text-green-400 font-bold">100%</span>
+           </div>
+           <div class="flex items-center justify-between"><span class="text-sm">الرقمنة التعليمية</span> <span class="text-green-400 font-bold">95%</span>
+           </div>
+           <div class="flex items-center justify-between"><span class="text-sm">الصحة النفسية</span> <span class="text-amber-400 font-bold">85%</span>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section><!-- ==================== صفحة الرسائل ==================== -->
+     <section id="messagesSection" class="content-section hidden">
+      <div class="mb-6">
+       <h2 class="text-2xl font-bold">✉️ الرسائل</h2>
+       <p class="text-gray-500 mt-1">5 رسائل غير مقروءة</p>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6"><!-- قائمة المحادثات -->
+       <div class="card p-5">
+        <div class="relative mb-4"><input type="text" placeholder="بحث في الرسائل..." class="w-full p-3 pr-10 bg-gray-50 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"> <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+        </div>
+        <div class="space-y-3" id="conversationsList"><!-- سيتم ملؤها بـ JavaScript -->
+        </div>
+       </div><!-- نافذة المحادثة -->
+       <div class="lg:col-span-2 card flex flex-col" style="height: 500px;">
+        <div id="chatHeader" class="p-4 border-b flex items-center gap-4 bg-gradient-to-r from-gray-50 to-white">
+         <div class="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center">
+          👨‍🏫
+         </div>
+         <div>
+          <p class="font-bold">د/ أكرم فتحي</p>
+          <p class="text-xs text-green-500 flex items-center gap-1"><span class="w-2 h-2 bg-green-500 rounded-full"></span> متصل الآن</p>
+         </div>
+        </div>
+        <div id="messagesContainer" class="flex-1 p-5 overflow-y-auto space-y-4 bg-gradient-to-b from-gray-50 to-white"><!-- سيتم ملؤها بـ JavaScript -->
+        </div>
+        <div class="p-4 border-t bg-white">
+         <form id="messageForm" class="flex gap-3" onsubmit="event.preventDefault(); sendMessage();"><input type="text" id="messageInput" placeholder="اكتب رسالتك..." class="flex-1 p-3 bg-gray-50 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"> <button type="button" class="p-3 text-gray-400 hover:text-gray-600">📎</button> <button type="submit" class="px-5 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-medium flex items-center gap-2"> <span>إرسال</span>
+           <svg class="w-5 h-5 rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+           </svg></button>
+         </form>
+        </div>
+       </div>
+      </div>
+     </section><!-- ==================== صفحة الإشعارات ==================== -->
+     <section id="notificationsSection" class="content-section hidden">
+      <div class="flex items-center justify-between mb-6">
+       <div>
+        <h2 class="text-2xl font-bold">🔔 الإشعارات</h2>
+        <p class="text-gray-500 mt-1">12 إشعار جديد</p>
+       </div><button onclick="markAllRead()" class="px-5 py-2.5 text-blue-600 hover:bg-blue-50 rounded-xl font-medium transition-all"> تحديد الكل كمقروء ✓ </button>
+      </div>
+      <div class="card p-5 space-y-4" id="notificationsList"><!-- سيتم ملؤها بـ JavaScript -->
+      </div>
+     </section><!-- ==================== صفحة المنتدى ==================== -->
+     <section id="forumSection" class="content-section hidden">
+      <div class="flex items-center justify-between mb-6">
+       <div>
+        <h2 class="text-2xl font-bold">💬 منتدى النقاش</h2>
+        <p class="text-gray-500 mt-1">شارك أفكارك وتفاعل مع زملائك</p>
+       </div><button onclick="showNewPostModal()" class="px-5 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold flex items-center gap-2 hover:shadow-lg transition-all"> <span>✏️</span> موضوع جديد </button>
+      </div>
+      <div class="space-y-4" id="forumPosts"><!-- سيتم ملؤها بـ JavaScript -->
+      </div>
+     </section><!-- ==================== صفحة المكتبة ==================== -->
+     <section id="librarySection" class="content-section hidden">
+      <div class="mb-6">
+       <h2 class="text-2xl font-bold">📖 المكتبة الرقمية</h2>
+       <p class="text-gray-500 mt-1">مصادر تعليمية ومراجع علمية</p>
+      </div>
+      <div class="flex gap-4 mb-6 flex-wrap"><button class="px-5 py-2.5 bg-blue-600 text-white rounded-xl font-medium">جميع الملفات</button> <button class="px-5 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200">الكتب</button> <button class="px-5 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200">الأبحاث</button> <button class="px-5 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200">الفيديوهات</button>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="libraryItems"><!-- سيتم ملؤها بـ JavaScript -->
+      </div>
+     </section><!-- ==================== صفحة الإعدادات ==================== -->
+     <section id="settingsSection" class="content-section hidden">
+      <div class="mb-6">
+       <h2 class="text-2xl font-bold">⚙️ الإعدادات</h2>
+       <p class="text-gray-500 mt-1">تخصيص تجربتك على المنصة</p>
+      </div><!-- نمط التعلم -->
+      <div class="card p-6 mb-6">
+       <h3 class="font-bold text-lg mb-5 flex items-center gap-2"><span>🧠</span> نمط التعلم المفضل</h3>
+       <div class="grid grid-cols-1 md:grid-cols-3 gap-5"><button onclick="setLearningStyle('visual')" id="style-visual" class="p-5 rounded-2xl border-3 border-blue-500 bg-blue-50 text-center transition-all hover:shadow-xl"> <span class="text-4xl block mb-3">👁️</span> <h4 class="font-bold text-blue-800">بصري</h4><p class="text-sm text-blue-600 mt-1">صور، فيديوهات، رسوم بيانية</p><span class="inline-block mt-3 text-sm bg-blue-500 text-white px-4 py-1.5 rounded-full font-bold">✓ مُفعّل</span> </button> <button onclick="setLearningStyle('auditory')" id="style-auditory" class="p-5 rounded-2xl border-3 border-gray-200 bg-white text-center transition-all hover:shadow-xl hover:border-purple-300"> <span class="text-4xl block mb-3">🎧</span> <h4 class="font-bold text-gray-800">سمعي</h4><p class="text-sm text-gray-500 mt-1">محاضرات صوتية، بودكاست</p></button> <button onclick="setLearningStyle('kinesthetic')" id="style-kinesthetic" class="p-5 rounded-2xl border-3 border-gray-200 bg-white text-center transition-all hover:shadow-xl hover:border-green-300"> <span class="text-4xl block mb-3">✋</span> <h4 class="font-bold text-gray-800">حركي</h4><p class="text-sm text-gray-500 mt-1">تطبيقات عملية، مشاريع</p></button>
+       </div>
+      </div><!-- معلومات الحساب -->
+      <div class="card p-6 mb-6">
+       <h3 class="font-bold text-lg mb-5 flex items-center gap-2"><span>👤</span> معلومات الحساب</h3>
+       <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div><label class="block text-sm font-semibold text-gray-700 mb-2">الاسم الكامل</label> <input type="text" id="settingsName" class="w-full p-3 form-input rounded-xl focus:outline-none">
+        </div>
+        <div><label class="block text-sm font-semibold text-gray-700 mb-2">البريد الإلكتروني</label> <input type="email" id="settingsEmail" value="aya.ali@edu.svu.eg" class="w-full p-3 form-input rounded-xl focus:outline-none">
+        </div>
+        <div><label class="block text-sm font-semibold text-gray-700 mb-2">رقم الهاتف</label> <input type="tel" value="01012345678" class="w-full p-3 form-input rounded-xl focus:outline-none">
+        </div>
+        <div><label class="block text-sm font-semibold text-gray-700 mb-2">الرقم الجامعي</label> <input type="text" id="settingsId" disabled class="w-full p-3 bg-gray-100 rounded-xl cursor-not-allowed">
+        </div>
+       </div><button onclick="saveSettings()" class="mt-5 px-8 py-3 btn-official text-white rounded-xl font-bold"> 💾 حفظ التغييرات </button>
+      </div><!-- إعدادات الإشعارات -->
+      <div class="card p-6">
+       <h3 class="font-bold text-lg mb-5 flex items-center gap-2"><span>🔔</span> إعدادات الإشعارات</h3>
+       <div class="space-y-4"><label class="flex items-center justify-between p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition-all">
+         <div class="flex items-center gap-3"><span class="text-xl">📧</span>
+          <div>
+           <p class="font-medium">إشعارات البريد الإلكتروني</p>
+           <p class="text-sm text-gray-500">استلم الإشعارات على بريدك</p>
+          </div>
+         </div><input type="checkbox" checked class="w-5 h-5 rounded text-blue-600"> </label> <label class="flex items-center justify-between p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition-all">
+         <div class="flex items-center gap-3"><span class="text-xl">📝</span>
+          <div>
+           <p class="font-medium">تنبيهات التكليفات</p>
+           <p class="text-sm text-gray-500">تنبيه قبل موعد التسليم</p>
+          </div>
+         </div><input type="checkbox" checked class="w-5 h-5 rounded text-blue-600"> </label> <label class="flex items-center justify-between p-4 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition-all">
+         <div class="flex items-center gap-3"><span class="text-xl">💬</span>
+          <div>
+           <p class="font-medium">إشعارات الرسائل</p>
+           <p class="text-sm text-gray-500">عند وصول رسالة جديدة</p>
+          </div>
+         </div><input type="checkbox" checked class="w-5 h-5 rounded text-blue-600"> </label>
+       </div>
+      </div>
+     </section>
+    </div>
+   </div>
+  </div><!-- ==================== المساعد الذكي Modal ==================== -->
+  <div id="chatbotModal" class="fixed inset-0 modal-overlay hidden items-center justify-center z-50 p-4">
+   <div class="bg-white rounded-3xl w-full max-w-lg shadow-2xl flex flex-col overflow-hidden" style="height: 550px;">
+    <div class="bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 text-white p-5">
+     <div class="flex items-center justify-between">
+      <div class="flex items-center gap-4">
+       <div class="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm"><span class="text-2xl">🤖</span>
+       </div>
+       <div>
+        <h3 class="font-bold text-lg">المساعد الذكي</h3>
+        <div class="flex items-center gap-2"><span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span> <span class="text-sm opacity-90">متصل ومستعد للمساعدة</span>
+        </div>
+       </div>
+      </div><button onclick="closeChatbot()" class="p-2 hover:bg-white/20 rounded-xl transition-colors text-xl">✕</button>
+     </div>
+    </div>
+    <div id="chatMessages" class="flex-1 p-5 overflow-y-auto space-y-4 bg-gradient-to-b from-gray-50 to-white">
+     <div class="flex gap-3">
+      <div class="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0"><span>🤖</span>
+      </div>
+      <div class="bg-gray-100 rounded-2xl rounded-tr-none p-4 max-w-[80%]">
+       <p class="text-sm leading-relaxed">مرحباً! 👋 أنا المساعد الذكي لمنصة التعليم. كيف يمكنني مساعدتك اليوم؟</p>
+       <div class="mt-3 flex flex-wrap gap-2"><button onclick="askBot('كيف أسجل حضوري؟')" class="text-xs bg-purple-100 text-purple-700 px-3 py-1.5 rounded-full hover:bg-purple-200 transition-all">كيف أسجل حضوري؟</button> <button onclick="askBot('ما هي التكليفات المعلقة؟')" class="text-xs bg-purple-100 text-purple-700 px-3 py-1.5 rounded-full hover:bg-purple-200 transition-all">التكليفات المعلقة</button> <button onclick="askBot('كم معدلي؟')" class="text-xs bg-purple-100 text-purple-700 px-3 py-1.5 rounded-full hover:bg-purple-200 transition-all">معدلي الحالي</button>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="p-4 border-t bg-white">
+     <form id="chatForm" class="flex gap-3"><input type="text" id="chatInput" placeholder="اكتب سؤالك هنا..." class="flex-1 p-4 border-2 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500"> <button type="submit" class="p-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl hover:shadow-lg transition-all">
+       <svg class="w-6 h-6 rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+       </svg></button>
+     </form>
+    </div>
+   </div>
+  </div><!-- Toast Notification -->
+  <div id="toast" class="toast fixed bottom-5 left-5 right-5 md:left-auto md:right-5 md:w-96 bg-white rounded-2xl p-5 shadow-2xl border-r-4 border-green-500 z-50">
+   <div class="flex items-center gap-4"><span id="toastIcon" class="text-3xl">✅</span>
+    <div>
+     <p id="toastMessage" class="text-gray-800 font-bold">تم بنجاح</p>
+     <p id="toastSubMessage" class="text-sm text-gray-500 mt-0.5"></p>
+    </div>
+   </div>
+  </div>
+  <script>
+    // ==================== البيانات ====================
+    const defaultConfig = { 
+      platform_name: 'منظومة التعليم الرقمي', 
+      welcome_message: 'منصة أكاديمية معتمدة' 
+    };
+
+    const courses = [
+      { id: 'mental-health', name: 'الصحة النفسية والإرشاد', instructor: 'أ.د. سمية عبدالرحمن', icon: '🧠', progress: 78, color: 'emerald', hours: 3,
+        units: [
+          { id: 1, title: 'مفهوم الصحة النفسية وأهميتها', status: 'completed', duration: '45 دقيقة', type: 'video' },
+          { id: 2, title: 'نظريات الإرشاد النفسي', status: 'completed', duration: '60 دقيقة', type: 'reading' },
+          { id: 3, title: 'مهارات المرشد النفسي', status: 'current', duration: '50 دقيقة', type: 'interactive' },
+          { id: 4, title: 'تطبيقات عملية في الإرشاد', status: 'locked', duration: '55 دقيقة', type: 'project' },
+        ],
+        materials: [
+          { name: 'كتاب الصحة النفسية والإرشاد', type: 'pdf', size: '5.2 MB' },
+          { name: 'عرض تقديمي - نظريات الإرشاد', type: 'pptx', size: '3.1 MB' },
+        ],
+        grades: { attendance: 10, assignments: 18, midterm: 18, final: '-', total: 46 }
+      },
+      { id: 'digitization', name: 'الرقمنة في الإدارة التعليمية', instructor: 'د/ أكرم فتحي', icon: '💻', progress: 82, color: 'blue', hours: 3,
+        units: [
+          { id: 1, title: 'مفهوم التحول الرقمي في التعليم', status: 'completed', duration: '40 دقيقة', type: 'video' },
+          { id: 2, title: 'أنظمة إدارة التعلم LMS', status: 'completed', duration: '55 دقيقة', type: 'reading' },
+          { id: 3, title: 'التعلم المدمج والتعلم الإلكتروني', status: 'current', duration: '45 دقيقة', type: 'interactive' },
+          { id: 4, title: 'مشروع تطبيقي', status: 'locked', duration: '120 دقيقة', type: 'project' },
+        ],
+        materials: [
+          { name: 'دليل أنظمة إدارة التعلم', type: 'pdf', size: '3.8 MB' },
+          { name: 'فيديو شرح Moodle', type: 'video', size: '150 MB' },
+        ],
+        grades: { attendance: 10, assignments: 17, midterm: 19, final: '-', total: 46 }
+      },
+      { id: 'environment', name: 'الثقافة البيئية والسكانية', instructor: 'د. هالة محمود', icon: '🌍', progress: 65, color: 'green', hours: 3,
+        units: [
+          { id: 1, title: 'مفهوم البيئة والنظام البيئي', status: 'completed', duration: '35 دقيقة', type: 'video' },
+          { id: 2, title: 'المشكلات البيئية المعاصرة', status: 'current', duration: '45 دقيقة', type: 'reading' },
+        ],
+        materials: [{ name: 'كتاب الثقافة البيئية', type: 'pdf', size: '4.5 MB' }],
+        grades: { attendance: 9, assignments: 16, midterm: 17, final: '-', total: 42 }
+      },
+      { id: 'quality', name: 'ضمان الجودة والاعتماد', instructor: 'د. أحمد سالم', icon: '⭐', progress: 70, color: 'purple', hours: 3,
+        units: [
+          { id: 1, title: 'مفهوم الجودة في التعليم', status: 'completed', duration: '40 دقيقة', type: 'video' },
+          { id: 2, title: 'معايير الاعتماد الأكاديمي', status: 'current', duration: '50 دقيقة', type: 'reading' },
+        ],
+        materials: [{ name: 'دليل ضمان الجودة', type: 'pdf', size: '2.9 MB' }],
+        grades: { attendance: 10, assignments: 16, midterm: 18, final: '-', total: 44 }
+      },
+      { id: 'english', name: 'قراءات إنجليزية تخصصية', instructor: 'Dr. Sara Mahmoud', icon: '🇬🇧', progress: 55, color: 'red', hours: 3,
+        units: [
+          { id: 1, title: 'Educational Technology Terms', status: 'completed', duration: '30 دقيقة', type: 'reading' },
+          { id: 2, title: 'Research Articles Analysis', status: 'current', duration: '45 دقيقة', type: 'reading' },
+        ],
+        materials: [{ name: 'Glossary of Ed-Tech Terms', type: 'pdf', size: '1.8 MB' }],
+        grades: { attendance: 8, assignments: 14, midterm: 16, final: '-', total: 38 }
+      },
+      { id: 'design', name: 'التصميم التعليمي', instructor: 'د/ أكرم فتحي', icon: '🎨', progress: 88, color: 'amber', hours: 3,
+        units: [
+          { id: 1, title: 'مفهوم التصميم التعليمي', status: 'completed', duration: '40 دقيقة', type: 'video' },
+          { id: 2, title: 'نموذج ADDIE للتصميم', status: 'completed', duration: '55 دقيقة', type: 'reading' },
+          { id: 3, title: 'نماذج التصميم التعليمي', status: 'completed', duration: '50 دقيقة', type: 'interactive' },
+          { id: 4, title: 'مشروع التصميم التطبيقي', status: 'current', duration: '120 دقيقة', type: 'project' },
+        ],
+        materials: [
+          { name: 'كتاب التصميم التعليمي', type: 'pdf', size: '8.5 MB' },
+          { name: 'قوالب التصميم', type: 'zip', size: '25 MB' },
+        ],
+        grades: { attendance: 10, assignments: 19, midterm: 19, final: '-', total: 48 }
+      }
+    ];
+
+    const assignments = [
+      { id: 1, title: 'تصميم وحدة تعليمية رقمية', course: 'الرقمنة التعليمية', courseIcon: '💻', deadline: 'غداً', deadlineDate: '2025-01-16', status: 'pending', priority: 'high', description: 'تصميم وحدة تعليمية متكاملة باستخدام أدوات الرقمنة' },
+      { id: 2, title: 'بحث عن نظريات الإرشاد النفسي', course: 'الصحة النفسية', courseIcon: '🧠', deadline: '5 أيام', deadlineDate: '2025-01-20', status: 'pending', priority: 'medium', description: 'بحث علمي عن إحدى نظريات الإرشاد النفسي' },
+      { id: 3, title: 'تقرير التنمية المستدامة', course: 'الثقافة البيئية', courseIcon: '🌍', deadline: 'أسبوع', deadlineDate: '2025-01-22', status: 'pending', priority: 'low', description: 'تقرير شامل عن التنمية المستدامة وأهدافها' },
+      { id: 4, title: 'عرض تقديمي عن معايير الجودة', course: 'ضمان الجودة', courseIcon: '⭐', deadline: '10 أيام', deadlineDate: '2025-01-25', status: 'pending', priority: 'medium', description: 'عرض تقديمي عن معايير الجودة في المؤسسات التعليمية' },
+      { id: 5, title: 'مشروع نموذج ADDIE', course: 'التصميم التعليمي', courseIcon: '🎨', deadline: 'تم', status: 'completed', grade: '28/30', submittedDate: '2025-01-10' },
+      { id: 6, title: 'ترجمة مقال تعليمي', course: 'قراءات إنجليزية', courseIcon: '🇬🇧', deadline: 'تم', status: 'completed', grade: '25/30', submittedDate: '2025-01-08' },
+    ];
+
+    const schedule = [
+      { day: 'الأحد', slots: [{ course: 'الصحة النفسية', room: 'قاعة 101', type: 'نظري' }, null, { course: 'التصميم التعليمي', room: 'معمل 3', type: 'عملي' }, null]},
+      { day: 'الإثنين', slots: [null, { course: 'الرقمنة التعليمية', room: 'قاعة 205', type: 'نظري' }, null, { course: 'قراءات إنجليزية', room: 'قاعة 108', type: 'نظري' }]},
+      { day: 'الثلاثاء', slots: [{ course: 'ضمان الجودة', room: 'قاعة 203', type: 'نظري' }, null, { course: 'الثقافة البيئية', room: 'قاعة 105', type: 'نظري' }, null]},
+      { day: 'الأربعاء', slots: [null, { course: 'الصحة النفسية', room: 'قاعة 101', type: 'سيمينار' }, { course: 'التصميم التعليمي', room: 'قاعة 205', type: 'نظري' }, null]},
+      { day: 'الخميس', slots: [{ course: 'الرقمنة التعليمية', room: 'معمل 2', type: 'عملي' }, null, null, null]}
+    ];
+
+    const notifications = [
+      { id: 1, type: 'assignment', icon: '📝', title: 'تكليف جديد', message: 'تصميم وحدة تعليمية - الرقمنة التعليمية', time: 'منذ ساعة', unread: true, color: 'blue' },
+      { id: 2, type: 'grade', icon: '✅', title: 'تم تصحيح مشروعك', message: 'حصلتِ على 28/30 - التصميم التعليمي', time: 'منذ 3 ساعات', unread: true, color: 'green' },
+      { id: 3, type: 'message', icon: '💬', title: 'رسالة جديدة', message: 'د/ أكرم فتحي أرسل لك رسالة', time: 'منذ 5 ساعات', unread: true, color: 'purple' },
+      { id: 4, type: 'reminder', icon: '⏰', title: 'تذكير بموعد التسليم', message: 'تكليف الرقمنة التعليمية - غداً', time: 'منذ يوم', unread: false, color: 'amber' },
+      { id: 5, type: 'announcement', icon: '📢', title: 'إعلان من الكلية', message: 'تأجيل امتحان الصحة النفسية', time: 'منذ يومين', unread: false, color: 'red' },
+    ];
+
+    const conversations = [
+      { id: 1, name: 'د/ أكرم فتحي', avatar: '👨‍🏫', role: 'أستاذ المقرر', lastMessage: 'بخصوص مشروع التصميم التعليمي...', time: 'منذ ساعة', unread: 2, online: true },
+      { id: 2, name: 'سارة أحمد', avatar: '👩‍🎓', role: 'زميلة', lastMessage: 'هل انتهيتِ من البحث؟', time: 'منذ 3 ساعات', unread: 0, online: true },
+      { id: 3, name: 'أ.د. سمية عبدالرحمن', avatar: '👩‍🏫', role: 'أستاذة المقرر', lastMessage: 'موعد السيمينار القادم...', time: 'أمس', unread: 1, online: false },
+      { id: 4, name: 'محمد علي', avatar: '👨‍🎓', role: 'زميل', lastMessage: 'شكراً على الملاحظات', time: 'منذ يومين', unread: 0, online: false },
+    ];
+
+    const forumPosts = [
+      { id: 1, title: 'مستقبل التعليم الإلكتروني في مصر', author: 'آية علي', avatar: '👩‍🎓', date: 'منذ يوم', replies: 12, likes: 25, course: 'الرقمنة التعليمية' },
+      { id: 2, title: 'أفضل أدوات التصميم التعليمي', author: 'د/ أكرم فتحي', avatar: '👨‍🏫', date: 'منذ 3 أيام', replies: 28, likes: 45, course: 'التصميم التعليمي' },
+      { id: 3, title: 'تجربتي مع نموذج ADDIE', author: 'سارة أحمد', avatar: '👩‍🎓', date: 'منذ أسبوع', replies: 8, likes: 18, course: 'التصميم التعليمي' },
+    ];
+
+    const libraryItems = [
+      { id: 1, title: 'أساسيات التصميم التعليمي', type: 'كتاب', icon: '📕', author: 'د. محمد خميس', downloads: 245, size: '12 MB' },
+      { id: 2, title: 'تقنيات التعليم الحديثة', type: 'بحث', icon: '📄', author: 'أ.د. حسن زيتون', downloads: 189, size: '3.5 MB' },
+      { id: 3, title: 'مقدمة في أنظمة LMS', type: 'فيديو', icon: '🎬', author: 'د/ أكرم فتحي', downloads: 320, size: '250 MB' },
+      { id: 4, title: 'الذكاء الاصطناعي في التعليم', type: 'كتاب', icon: '📗', author: 'د. أحمد سالم', downloads: 156, size: '8 MB' },
+    ];
+
+    // ==================== المتغيرات ====================
+    let currentUser = null;
+    let currentCourse = null;
+    let cameraStream = null;
+    let loginCameraStream = null;
+    let currentFilter = 'all';
+    let currentConversation = conversations[0];
+
+    // ==================== تهيئة SDK ====================
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (config) => {
+          const title = document.getElementById('platformTitle');
+          if (title) title.textContent = config.platform_name || defaultConfig.platform_name;
+        },
+        mapToCapabilities: () => ({ recolorables: [], borderables: [], fontEditable: undefined, fontSizeable: undefined }),
+        mapToEditPanelValues: (config) => new Map([
+          ['platform_name', config.platform_name || defaultConfig.platform_name],
+          ['welcome_message', config.welcome_message || defaultConfig.welcome_message]
+        ])
+      });
+    }
+
+    // ==================== تبديل تبويبات تسجيل الدخول ====================
+    function switchLoginTab(tab) {
+      const passwordTab = document.getElementById('tabPassword');
+      const faceTab = document.getElementById('tabFace');
+      const passwordForm = document.getElementById('passwordLoginForm');
+      const faceForm = document.getElementById('faceLoginForm');
+      
+      if (tab === 'password') {
+        passwordTab.classList.add('bg-white', 'shadow-md', 'text-slate-800');
+        passwordTab.classList.remove('text-gray-500');
+        faceTab.classList.remove('bg-white', 'shadow-md', 'text-slate-800');
+        faceTab.classList.add('text-gray-500');
+        passwordForm.classList.remove('hidden');
+        faceForm.classList.add('hidden');
+        stopLoginCamera();
+      } else {
+        faceTab.classList.add('bg-white', 'shadow-md', 'text-slate-800');
+        faceTab.classList.remove('text-gray-500');
+        passwordTab.classList.remove('bg-white', 'shadow-md', 'text-slate-800');
+        passwordTab.classList.add('text-gray-500');
+        faceForm.classList.remove('hidden');
+        passwordForm.classList.add('hidden');
+      }
+    }
+
+    // ==================== وظائف كلمة المرور ====================
+    function togglePassword() {
+      const input = document.getElementById('password');
+      const icon = document.getElementById('eyeIcon');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.textContent = '🙈';
+      } else {
+        input.type = 'password';
+        icon.textContent = '👁️';
+      }
+    }
+
+    function showForgotPassword() {
+      document.getElementById('forgotPasswordModal').classList.remove('hidden');
+      document.getElementById('forgotPasswordModal').classList.add('flex');
+    }
+
+    function closeForgotPassword() {
+      document.getElementById('forgotPasswordModal').classList.add('hidden');
+      document.getElementById('forgotPasswordModal').classList.remove('flex');
+    }
+
+    function sendResetLink() {
+      const email = document.getElementById('resetEmail').value;
+      closeForgotPassword();
+      showToast('تم إرسال رابط الاستعادة', '📧', `إلى ${email}`);
+    }
+
+    // ==================== كاميرا تسجيل الدخول ====================
+    async function startLoginCamera() {
+      try {
+        loginCameraStream = await navigator.mediaDevices.getUserMedia({ 
+          video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } } 
+        });
+        const video = document.getElementById('loginVideoFeed');
+        video.srcObject = loginCameraStream;
+        video.style.display = 'block';
+        document.getElementById('loginCameraPlaceholder').style.display = 'none';
+        document.getElementById('loginFaceFrame').style.display = 'block';
+        document.getElementById('loginStartCamera').classList.add('hidden');
+        document.getElementById('loginCaptureBtn').classList.remove('hidden');
+      } catch (err) {
+        showToast('لم نتمكن من الوصول للكاميرا', '❌', 'تأكد من السماح بالوصول للكاميرا');
+      }
+    }
+
+    function stopLoginCamera() {
+      if (loginCameraStream) {
+        loginCameraStream.getTracks().forEach(track => track.stop());
+        loginCameraStream = null;
+      }
+      const video = document.getElementById('loginVideoFeed');
+      if (video) { video.srcObject = null; video.style.display = 'none'; }
+      const placeholder = document.getElementById('loginCameraPlaceholder');
+      if (placeholder) placeholder.style.display = 'flex';
+      const frame = document.getElementById('loginFaceFrame');
+      if (frame) frame.style.display = 'none';
+      const startBtn = document.getElementById('loginStartCamera');
+      if (startBtn) startBtn.classList.remove('hidden');
+      const captureBtn = document.getElementById('loginCaptureBtn');
+      if (captureBtn) captureBtn.classList.add('hidden');
+    }
+
+    function captureLoginFace() {
+      document.getElementById('loginProcessing').style.display = 'flex';
+      document.getElementById('loginFaceFrame').style.display = 'none';
+      
+      setTimeout(() => {
+        document.getElementById('loginProcessing').style.display = 'none';
+        document.getElementById('loginSuccess').style.display = 'flex';
+        
+        setTimeout(() => {
+          stopLoginCamera();
+          document.getElementById('loginSuccess').style.display = 'none';
+          quickLogin('student');
+        }, 1500);
+      }, 2500);
+    }
+
+    // ==================== تسجيل الدخول ====================
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const userId = document.getElementById('userId').value;
+      const password = document.getElementById('password').value;
+      
+      if (userId && password) {
+        quickLogin('student');
+      }
+    });
+
+    function quickLogin(role) {
+      const users = {
+        student: { name: 'آية علي عبداللطيف', role: 'طالبة - الفرقة الرابعة', avatar: '🎓', firstName: 'آية', id: '2024001234', email: 'aya.ali@edu.svu.eg' },
+        teacher: { name: 'د/ أكرم فتحي', role: 'عضو هيئة تدريس', avatar: '👨‍🏫', firstName: 'د/ أكرم', id: 'T2020001', email: 'akram.fathy@svu.edu.eg' },
+        admin: { name: 'أحمد محمد', role: 'مدير النظام', avatar: '⚙️', firstName: 'أحمد', id: 'A001', email: 'admin@svu.edu.eg' },
+        guest: { name: 'زائر', role: 'وضع المعاينة', avatar: '👁️', firstName: 'زائر', id: 'G000', email: 'guest@svu.edu.eg' }
+      };
+      
+      currentUser = users[role];
+      
+      // تحديث واجهة المستخدم
+      document.getElementById('sidebarName').textContent = currentUser.name;
+      document.getElementById('sidebarRole').textContent = currentUser.role;
+      document.getElementById('sidebarAvatar').textContent = currentUser.avatar;
+      document.getElementById('welcomeName').textContent = currentUser.firstName;
+      document.getElementById('settingsName').value = currentUser.name;
+      document.getElementById('settingsEmail').value = currentUser.email;
+      document.getElementById('settingsId').value = currentUser.id;
+      
+      // إخفاء شاشة الدخول وإظهار المنصة
+      document.getElementById('loginScreen').classList.add('hidden');
+      document.getElementById('mainPlatform').classList.remove('hidden');
+      
+      initPlatform();
+      showToast(`مرحباً ${currentUser.firstName}! 👋`, '✅', 'تم تسجيل الدخول بنجاح');
+    }
+
+    function logout() {
+      stopCamera();
+      stopLoginCamera();
+      currentUser = null;
+      document.getElementById('mainPlatform').classList.add('hidden');
+      document.getElementById('loginScreen').classList.remove('hidden');
+      switchLoginTab('password');
+      document.getElementById('userId').value = '';
+      document.getElementById('password').value = '';
+    }
+
+    // ==================== تهيئة المنصة ====================
+    function initPlatform() {
+      updateDateTime();
+      setInterval(updateDateTime, 1000);
+      renderHomePreview();
+      renderCourses();
+      renderAssignments();
+      renderGrades();
+      renderSchedule();
+      renderTodaySchedule();
+      renderRecentNotifications();
+      renderNotifications();
+      renderConversations();
+      renderMessages();
+      renderForum();
+      renderLibrary();
+      renderAttendanceHistory();
+    }
+
+    function updateDateTime() {
+      const now = new Date();
+      const days = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+      const months = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+      
+      const dateStr = `${days[now.getDay()]}، ${now.getDate()} ${months[now.getMonth()]}`;
+      const timeStr = now.toLocaleTimeString('ar-EG');
+      
+      const dateTimeEl = document.getElementById('currentDateTime');
+      if (dateTimeEl) {
+        dateTimeEl.innerHTML = `
+          <p class="text-xs text-blue-200">${dateStr}</p>
+          <p class="font-bold text-lg countdown">${timeStr}</p>
+        `;
+      }
+      
+      const welcomeDateEl = document.getElementById('welcomeDate');
+      if (welcomeDateEl) welcomeDateEl.textContent = `${dateStr} ${now.getFullYear()}`;
+      
+      const todayNameEl = document.getElementById('todayName');
+      if (todayNameEl) todayNameEl.textContent = `(${days[now.getDay()]})`;
+    }
+
+    // ==================== التنقل بين الأقسام ====================
+    function showSection(section) {
+      document.querySelectorAll('.content-section').forEach(s => s.classList.add('hidden'));
+      const targetSection = document.getElementById(section + 'Section');
+      if (targetSection) {
+        targetSection.classList.remove('hidden');
+        targetSection.classList.add('fade-in');
+      }
+      
+      document.querySelectorAll('.sidebar-item').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.querySelector(`[data-section="${section}"]`);
+      if (activeBtn) activeBtn.classList.add('active');
+      
+      const titles = {
+        home: 'لوحة المعلومات',
+        courses: 'المقررات الدراسية',
+        courseDetail: currentCourse ? currentCourse.name : 'تفاصيل المقرر',
+        assignments: 'التكليفات والمهام',
+        grades: 'السجل الأكاديمي',
+        schedule: 'الجدول الدراسي',
+        messages: 'الرسائل',
+        notifications: 'الإشعارات',
+        attendance: 'نظام بصمة الوجه',
+        forum: 'منتدى النقاش',
+        library: 'المكتبة الرقمية',
+        settings: 'الإعدادات'
+      };
+      document.getElementById('pageTitle').textContent = titles[section] || section;
+      
+      if (section !== 'attendance') stopCamera();
+    }
+
+    // ==================== عرض البيانات ====================
+    function renderHomePreview() {
+      // المقررات
+      document.getElementById('homeCoursesPreview').innerHTML = courses.slice(0, 4).map(c => `
+        <div class="flex items-center gap-4 p-4 bg-gradient-to-r from-slate-50 to-gray-50 rounded-xl cursor-pointer hover:shadow-md transition-all" onclick="openCourseDetail('${c.id}')">
+          <div class="w-12 h-12 bg-${c.color}-100 rounded-xl flex items-center justify-center shadow-sm">
+            <span class="text-xl">${c.icon}</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="font-bold text-sm truncate">${c.name}</p>
+            <p class="text-xs text-gray-500">${c.instructor}</p>
+            <div class="flex items-center gap-2 mt-2">
+              <div class="flex-1 progress-bar h-2">
+                <div class="progress-fill" style="width: ${c.progress}%"></div>
+              </div>
+              <span class="text-xs font-bold text-${c.color}-600">${c.progress}%</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+      
+      // المهام
+      document.getElementById('homeTasksPreview').innerHTML = assignments.filter(a => a.status === 'pending').slice(0, 4).map(a => {
+        const colors = { high: 'red', medium: 'amber', low: 'blue' };
+        const priorities = { high: 'عاجل', medium: 'متوسط', low: 'عادي' };
+        const color = colors[a.priority];
+        return `
+          <div class="flex items-center gap-4 p-4 bg-${color}-50 rounded-xl border-r-4 border-${color}-500 hover:shadow-md transition-all">
+            <span class="text-xl">${a.courseIcon}</span>
+            <div class="flex-1 min-w-0">
+              <p class="font-bold text-sm truncate">${a.title}</p>
+              <p class="text-xs text-gray-500">${a.course}</p>
+            </div>
+            <div class="text-left">
+              <span class="px-3 py-1 bg-${color}-100 text-${color}-700 rounded-full text-xs font-bold">${a.deadline}</span>
+              <p class="text-xs text-${color}-600 mt-1">${priorities[a.priority]}</p>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderTodaySchedule() {
+      const days = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+      const today = days[new Date().getDay()];
+      const todayData = schedule.find(s => s.day === today);
+      
+      if (!todayData || todayData.slots.every(s => s === null)) {
+        document.getElementById('todaySchedule').innerHTML = `
+          <div class="text-center py-10 text-gray-500">
+            <span class="text-5xl block mb-4">🎉</span>
+            <p class="text-lg font-bold">لا توجد محاضرات اليوم!</p>
+            <p class="text-sm mt-2">استمتع بيومك</p>
+          </div>
+        `;
+        return;
+      }
+      
+      const times = ['8:00 - 10:00', '10:00 - 12:00', '12:00 - 2:00', '2:00 - 4:00'];
+      document.getElementById('todaySchedule').innerHTML = todayData.slots.map((slot, i) => {
+        if (!slot) return '';
+        const colors = { 'نظري': 'blue', 'عملي': 'green', 'سيمينار': 'purple' };
+        const icons = { 'نظري': '📖', 'عملي': '💻', 'سيمينار': '👥' };
+        const color = colors[slot.type];
+        return `
+          <div class="flex items-center gap-4 p-4 bg-${color}-50 rounded-xl border-r-4 border-${color}-500 hover:shadow-md transition-all">
+            <div class="text-center min-w-[80px]">
+              <p class="text-xs text-gray-500">الحصة ${i + 1}</p>
+              <p class="font-bold text-sm">${times[i]}</p>
+            </div>
+            <div class="w-10 h-10 bg-${color}-100 rounded-lg flex items-center justify-center">
+              <span>${icons[slot.type]}</span>
+            </div>
+            <div class="flex-1">
+              <p class="font-bold">${slot.course}</p>
+              <p class="text-sm text-gray-500">${slot.room}</p>
+            </div>
+            <span class="px-3 py-1.5 bg-${color}-200 text-${color}-800 rounded-lg text-sm font-medium">${slot.type}</span>
+          </div>
+        `;
+      }).filter(Boolean).join('') || '<p class="text-center text-gray-500 py-8">لا توجد محاضرات اليوم</p>';
+    }
+
+    function renderRecentNotifications() {
+      document.getElementById('recentNotifications').innerHTML = notifications.slice(0, 4).map(n => `
+        <div class="flex items-start gap-3 p-3 bg-${n.color}-50 rounded-xl ${n.unread ? 'border-r-2 border-' + n.color + '-500' : ''} hover:shadow-sm transition-all cursor-pointer">
+          <span class="text-xl">${n.icon}</span>
+          <div class="flex-1 min-w-0">
+            <p class="font-medium text-sm ${n.unread ? '' : 'text-gray-600'}">${n.title}</p>
+            <p class="text-xs text-gray-500 truncate">${n.message}</p>
+            <p class="text-xs text-gray-400 mt-1">${n.time}</p>
+          </div>
+          ${n.unread ? '<span class="w-2 h-2 bg-' + n.color + '-500 rounded-full"></span>' : ''}
+        </div>
+      `).join('');
+    }
+
+    function renderCourses() {
+      document.getElementById('coursesGrid').innerHTML = courses.map(c => `
+        <div class="card overflow-hidden cursor-pointer hover:shadow-2xl transition-all course-card" onclick="openCourseDetail('${c.id}')">
+          <div class="h-28 bg-gradient-to-br from-${c.color}-500 to-${c.color}-700 flex items-center justify-center relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10">
+              <div class="absolute -top-10 -right-10 w-40 h-40 bg-white rounded-full"></div>
+              <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-white rounded-full"></div>
+            </div>
+            <span class="text-5xl relative z-10">${c.icon}</span>
+            <div class="absolute top-3 left-3 px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white text-xs font-bold">${c.hours} ساعات</div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-bold text-base mb-2">${c.name}</h3>
+            <p class="text-sm text-gray-500 mb-4">${c.instructor}</p>
+            <div class="flex items-center gap-3">
+              <div class="flex-1 progress-bar h-2.5">
+                <div class="progress-fill" style="width: ${c.progress}%"></div>
+              </div>
+              <span class="text-base font-bold text-${c.color}-600">${c.progress}%</span>
+            </div>
+            <div class="flex items-center justify-between mt-4 pt-4 border-t">
+              <span class="text-xs text-gray-400">${c.units.length} وحدات</span>
+              <span class="text-xs text-gray-400">${c.materials.length} ملفات</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openCourseDetail(courseId) {
+      currentCourse = courses.find(c => c.id === courseId);
+      if (!currentCourse) return;
+      
+      document.getElementById('courseHeader').innerHTML = `
+        <div class="flex items-center gap-5 flex-wrap">
+          <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-${currentCourse.color}-500 to-${currentCourse.color}-700 flex items-center justify-center shadow-xl">
+            <span class="text-4xl">${currentCourse.icon}</span>
+          </div>
+          <div class="flex-1">
+            <h2 class="text-xl font-bold">${currentCourse.name}</h2>
+            <p class="text-gray-500 mt-1">${currentCourse.instructor}</p>
+            <div class="flex items-center gap-4 mt-2 text-sm text-gray-400">
+              <span>📚 ${currentCourse.units.length} وحدات</span>
+              <span>📁 ${currentCourse.materials.length} ملفات</span>
+              <span>⏰ ${currentCourse.hours} ساعات</span>
+            </div>
+          </div>
+          <div class="text-center p-4 bg-${currentCourse.color}-50 rounded-xl">
+            <p class="text-3xl font-bold text-${currentCourse.color}-600">${currentCourse.progress}%</p>
+            <p class="text-sm text-gray-500">التقدم</p>
+            <div class="progress-bar h-2 w-24 mt-2">
+              <div class="progress-fill" style="width: ${currentCourse.progress}%"></div>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      document.querySelectorAll('.course-nav-item').forEach(btn => btn.classList.remove('active'));
+      document.querySelector('[data-tab="units"]').classList.add('active');
+      showCourseTab('units');
+      showSection('courseDetail');
+    }
+
+    function showCourseTab(tab) {
+      document.querySelectorAll('.course-nav-item').forEach(btn => btn.classList.remove('active'));
+      document.querySelector(`[data-tab="${tab}"]`)?.classList.add('active');
+      
+      const content = document.getElementById('courseTabContent');
+      
+      if (tab === 'units') {
+        content.innerHTML = `
+          <h3 class="font-bold text-lg mb-5">📖 الوحدات الدراسية</h3>
+          <div class="space-y-4">
+            ${currentCourse.units.map((u, i) => {
+              const statusConfig = {
+                completed: { bg: 'bg-green-50', border: 'border-green-200', icon: '✅', text: 'مكتمل', color: 'green', action: '← مراجعة' },
+                current: { bg: 'bg-blue-50', border: 'border-blue-200', icon: '▶️', text: 'جاري الآن', color: 'blue', action: '← متابعة' },
+                locked: { bg: 'bg-gray-50', border: 'border-gray-200', icon: '🔒', text: 'مغلق', color: 'gray', action: '' }
+              }[u.status];
+              const typeIcons = { video: '🎥', reading: '📖', interactive: '🎮', project: '💼' };
+              return `
+                <div class="p-5 rounded-xl border-2 ${statusConfig.bg} ${statusConfig.border} hover:shadow-lg transition-all cursor-pointer">
+                  <div class="flex items-center gap-5">
+                    <div class="w-14 h-14 bg-${statusConfig.color}-100 rounded-xl flex items-center justify-center text-2xl">${statusConfig.icon}</div>
+                    <div class="flex-1">
+                      <div class="flex items-center gap-2 mb-1">
+                        <span class="text-xs bg-${statusConfig.color}-100 text-${statusConfig.color}-700 px-2 py-0.5 rounded font-medium">الوحدة ${i + 1}</span>
+                        <span class="text-xs text-gray-400">${typeIcons[u.type]} ${u.type}</span>
+                      </div>
+                      <h4 class="font-bold text-base">${u.title}</h4>
+                      <p class="text-sm text-gray-500 mt-1">⏱️ ${u.duration}</p>
+                    </div>
+                    <div class="text-left">
+                      <span class="px-4 py-2 bg-${statusConfig.color}-100 text-${statusConfig.color}-700 rounded-xl text-sm font-bold">${statusConfig.text}</span>
+                      ${statusConfig.action ? `<p class="text-xs text-${statusConfig.color}-600 mt-2 text-center">${statusConfig.action}</p>` : ''}
+                    </div>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        `;
+      } else if (tab === 'materials') {
+        content.innerHTML = `
+          <h3 class="font-bold text-lg mb-5">📁 المصادر والملفات</h3>
+          ${currentCourse.materials.length > 0 ? `
+            <div class="space-y-4">
+              ${currentCourse.materials.map(m => {
+                const icons = { pdf: '📕', pptx: '📊', video: '🎬', zip: '📦' };
+                return `
+                  <div class="p-5 bg-gray-50 rounded-xl flex items-center gap-5 hover:shadow-md transition-all">
+                    <span class="text-3xl">${icons[m.type] || '📄'}</span>
+                    <div class="flex-1">
+                      <p class="font-bold">${m.name}</p>
+                      <p class="text-sm text-gray-500">${m.type.toUpperCase()} • ${m.size}</p>
+                    </div>
+                    <button class="px-5 py-2.5 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-medium transition-all">
+                      ⬇️ تحميل
+                    </button>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          ` : `
+            <div class="text-center py-12 text-gray-500">
+              <span class="text-5xl block mb-4">📂</span>
+              <p class="text-lg">لا توجد ملفات متاحة حالياً</p>
+            </div>
+          `}
+        `;
+      } else if (tab === 'activities') {
+        content.innerHTML = `
+          <h3 class="font-bold text-lg mb-5">📋 الأنشطة والتكليفات</h3>
+          <div class="space-y-4">
+            ${assignments.filter(a => a.course.includes(currentCourse.name.split(' ')[0])).map(a => {
+              const color = a.status === 'completed' ? 'green' : 'amber';
+              return `
+                <div class="p-5 bg-${color}-50 rounded-xl border-r-4 border-${color}-500">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <h4 class="font-bold">${a.title}</h4>
+                      <p class="text-sm text-gray-500 mt-1">${a.description || ''}</p>
+                    </div>
+                    <span class="px-4 py-2 bg-${color}-100 text-${color}-700 rounded-xl font-bold">
+                      ${a.status === 'completed' ? a.grade : a.deadline}
+                    </span>
+                  </div>
+                </div>
+              `;
+            }).join('') || '<p class="text-center text-gray-500 py-8">لا توجد أنشطة حالياً</p>'}
+          </div>
+        `;
+      } else if (tab === 'courseGrades') {
+        const g = currentCourse.grades;
+        const total = g.attendance + g.assignments + g.midterm;
+        content.innerHTML = `
+          <h3 class="font-bold text-lg mb-5">📊 الدرجات</h3>
+          <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+            <div class="p-4 bg-blue-50 rounded-xl text-center">
+              <p class="text-2xl font-bold text-blue-600">${g.attendance}/10</p>
+              <p class="text-sm text-gray-500 mt-1">الحضور</p>
+            </div>
+            <div class="p-4 bg-green-50 rounded-xl text-center">
+              <p class="text-2xl font-bold text-green-600">${g.assignments}/20</p>
+              <p class="text-sm text-gray-500 mt-1">التكليفات</p>
+            </div>
+            <div class="p-4 bg-purple-50 rounded-xl text-center">
+              <p class="text-2xl font-bold text-purple-600">${g.midterm}/20</p>
+              <p class="text-sm text-gray-500 mt-1">النصفي</p>
+            </div>
+            <div class="p-4 bg-amber-50 rounded-xl text-center">
+              <p class="text-2xl font-bold text-amber-600">${g.final}</p>
+              <p class="text-sm text-gray-500 mt-1">النهائي/50</p>
+            </div>
+            <div class="p-4 bg-slate-100 rounded-xl text-center">
+              <p class="text-2xl font-bold">${total}/50</p>
+              <p class="text-sm text-gray-500 mt-1">المجموع الحالي</p>
+            </div>
+          </div>
+          <div class="p-5 bg-gradient-to-r from-slate-800 to-slate-900 rounded-xl text-white">
+            <div class="flex items-center justify-between mb-3">
+              <span>نسبة الإنجاز في الدرجات</span>
+              <span class="text-2xl font-bold text-green-400">${Math.round(total / 50 * 100)}%</span>
+            </div>
+            <div class="progress-bar h-3 bg-slate-700">
+              <div class="progress-fill" style="width: ${total}%"></div>
+            </div>
+          </div>
+        `;
+      } else if (tab === 'discussion') {
+        content.innerHTML = `
+          <h3 class="font-bold text-lg mb-5">💬 منتدى المناقشات</h3>
+          <div class="mb-5">
+            <button onclick="showNewPostModal()" class="px-5 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all">
+              ✏️ موضوع جديد
+            </button>
+          </div>
+          <div class="space-y-4">
+            ${forumPosts.filter(p => p.course === currentCourse.name).map(p => `
+              <div class="p-5 bg-gray-50 rounded-xl hover:shadow-md transition-all cursor-pointer">
+                <div class="flex items-start gap-4">
+                  <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-xl">${p.avatar}</div>
+                  <div class="flex-1">
+                    <h4 class="font-bold">${p.title}</h4>
+                    <p class="text-sm text-gray-500 mt-1">${p.author} • ${p.date}</p>
+                    <div class="flex items-center gap-4 mt-3 text-sm text-gray-400">
+                      <span>💬 ${p.replies} رد</span>
+                      <span>❤️ ${p.likes} إعجاب</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `).join('') || '<p class="text-center text-gray-500 py-8">لا توجد مناقشات حالياً</p>'}
+          </div>
+        `;
+      }
+    }
+
+    function renderAssignments() {
+      const filtered = currentFilter === 'all' ? assignments : assignments.filter(a => a.status === currentFilter);
+      document.getElementById('assignmentsList').innerHTML = filtered.map(a => {
+        const isPending = a.status === 'pending';
+        const colors = { high: 'red', medium: 'amber', low: 'blue' };
+        const priorities = { high: 'عاجل 🔴', medium: 'متوسط 🟡', low: 'عادي 🔵' };
+        const color = isPending ? colors[a.priority] : 'green';
+        return `
+          <div class="card p-5 border-r-4 border-${color}-500 hover:shadow-xl transition-all">
+            <div class="flex items-center gap-5">
+              <div class="w-14 </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9af0fc65865a7940',t:'MTc2NTkxNzUyMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
